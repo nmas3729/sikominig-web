@@ -2,114 +2,62 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { teamMembers } from "../lib/data/teamData";
 
-const teamMembers = [
-  {
-    name: "Bonani Siko",
-    role: "CEO / Executive Director",
-    image: "/images/team-img2.jpg",
-    shortBio: "Bonani Siko is a qualified Mining Engineer with a National Diploma in Coal Mining, a National Higher Diploma in Coal Mining, a B-Tech in Mining Engineering at the University of Johannesburg (UJ), as well as a certificate from an executive development program with the University of Cape Town (UCT). He further has a mine managers certificate of competency with South Africas Department of Mining Resources (DMR).",
-    fullBio: [
-      "He is currently a director at Siko Mining Services (SMS), and has been a general manager at Wescoal Holdings Pty Ltd, heading their mining operations (appointed under Section 4.1 of the Mine Health and Safety Act) for almost 4 years. Aside from the general manager role, Bonani also served as a director at Wescoal Mining Pty Ltd and Aztolinx Pty Ltd.",
-      "Bonani has extensive experience in the coal mining space and mining in general. He had the opportunity to complete the total coal mining value chain through Eskoms primary energy division, a role he served as their Senior Manager of Coal Operations, in support of coal supply agreements between Eskoms coal-fired power stations, and the mining houses. Additionally, Bonani acted as Divisional Executive at Eskoms primary energy division, and CEO at Wescoal Mining.",
-      "Bonani is an active member of the South African Colliery Managers Association (SACMA), and the Institute of Directors Southern Africa (IoDSA). He has more than 30 years experience in the mining industry.",
-    ],
-  },
-  {
-    name: "Lusito Mthethwa",
-    role: "Finance Director",
-    image: "/images/lusito.jpeg",
-    shortBio: "Lusito Mthethwa is the Finance Director at Siko Mining and Founder and CEO at Dispersive Consulting, specializing in Accounting, Tax, and Advisory services.",
-    fullBio: [
-      "He is a Certified Business Accountant in Practice (SA) through CIBA, bringing deep expertise in business accounting and financial management.",
-      "Lusito is a registered General Tax Practitioner (SA) with SAIT, providing comprehensive tax planning and compliance services.",
-      "He also holds certification as a Certified Labour Practitioner through the Department of Labour, giving him a well-rounded understanding of business operations, compliance, and workforce regulations.",
-    ],
-  },
-  {
-    name: "Mzoxolo Beqezi",
-    role: "Technology Consultant",
-    image: "/images/mzoxolo.png",
-    shortBio: "Mzoxolo Beqezi brings over 20 years of experience in Information Technology, including 12 years dedicated to Mining IT. He is the founder of NMAS INNOVATIONS (Pty) Ltd, a certified AWS and Azure specialist, a skilled Linux Administrator, and holds additional credentials in ITIL, cybersecurity, and cloud architecture.",
-    fullBio: [
-      "His expertise covers systems implementation, infrastructure design, network management, and IT governance across complex industrial and mining environments.",
-      "Throughout his career, Mzoxolo has provided IT support and consulting services to several major corporations, including Anglo American, Thungela Resources, Transnet, and Barclays Africa, gaining valuable insight into diverse operational environments and large-scale IT challenges.",
-      "At Siko Mining, Mzoxolo plays a pivotal role in planning, deploying, and maintaining secure, scalable technology solutions that enhance efficiency, safety, and data-driven decision-making.",
-      "Mzoxolos broad experience, spanning both hands-on technical operations and strategic consulting, enables him to bridge the gap between IT systems and business performance.",
-    ],
-  },
-];
-
-function TeamMember({ member, isReversed }: { member: typeof teamMembers[0]; isReversed: boolean }) {
+function TeamMember({ member, isReversed, index }: { member: typeof teamMembers[0]; isReversed: boolean; index: number }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="grid lg:grid-cols-2 items-center" style={{ gap: "40px" }}>
+    <div className={`grid lg:grid-cols-2 items-center gap-10 animate-fade-in-up`} style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'both' }}>
+
+      {/* Image Column */}
       <div className={isReversed ? "lg:order-2" : ""}>
-        <div className="relative" style={{ maxWidth: "400px", margin: "0 auto" }}>
-          <Image
-            src={member.image}
-            alt={member.name}
-            width={400}
-            height={500}
-            style={{
-              width: "100%",
-              height: "auto",
-              borderRadius: "8px",
-              boxShadow: "0 10px 40px rgba(0,0,0,0.15)",
-              objectFit: "cover",
-            }}
-            unoptimized
-          />
+        <div className={`relative max-w-[400px] mx-auto lg:mx-0 ${isReversed ? 'lg:mr-auto' : 'lg:ml-auto'} group`}>
           <div
-            style={{
-              position: "absolute",
-              bottom: "-8px",
-              left: isReversed ? "auto" : "-8px",
-              right: isReversed ? "-8px" : "auto",
-              width: "100%",
-              height: "100%",
-              border: "3px solid #F47C20",
-              borderRadius: "8px",
-              zIndex: -1,
-            }}
-          ></div>
+            className="relative z-10 w-full bg-gray-100 rounded-2xl overflow-hidden shadow-2xl transition-transform duration-500 group-hover:-translate-y-2 group-hover:scale-[1.02]"
+            style={{ aspectRatio: "4/5" }}
+          >
+            <Image
+              src={member.image}
+              alt={member.name}
+              fill
+              sizes="(max-width: 768px) 100vw, 400px"
+              className={`object-cover ${member.name.includes("Mzoxolo") ? "object-top" : "object-center"}`}
+            />
+          </div>
+
+          {/* Decorative outline offset */}
+          <div
+            className={`absolute -bottom-3 ${isReversed ? '-right-3' : '-left-3'} w-full h-full border-[3px] border-[#F47C20] rounded-2xl z-0 transition-transform duration-500 group-hover:translate-x-1 group-hover:translate-y-1`}
+          />
         </div>
       </div>
 
+      {/* Text Column */}
       <div className={isReversed ? "lg:order-1" : ""}>
-        <p style={{ color: "#F47C20", fontWeight: 600, fontSize: "14px", marginBottom: "5px", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+        <p className="text-[#F47C20] font-semibold text-sm mb-1.5 uppercase tracking-wide">
           {member.role}
         </p>
-        <h3 style={{ fontSize: "1.5rem", fontWeight: 700, color: "#1F2937", marginBottom: "15px" }}>
+        <h3 className="text-2xl lg:text-[1.5rem] font-bold text-[#1F2937] mb-4">
           {member.name}
         </h3>
-        <p style={{ color: "#4B5563", fontSize: "14px", lineHeight: 1.8, marginBottom: "15px" }}>
+        <p className="text-[#4B5563] text-sm leading-relaxed mb-4">
           {member.shortBio}
         </p>
 
-        {expanded && (
-          <div style={{ marginBottom: "15px" }}>
-            {member.fullBio.map((paragraph, index) => (
-              <p key={index} style={{ color: "#4B5563", fontSize: "14px", lineHeight: 1.8, marginBottom: "12px" }}>
+        <div className={`grid transition-all duration-500 ease-in-out ${expanded ? "grid-rows-[1fr] opacity-100 mb-4" : "grid-rows-[0fr] opacity-0 mb-0"}`}>
+          <div className="overflow-hidden">
+            {member.fullBio.map((paragraph, idx) => (
+              <p key={idx} className="text-[#4B5563] text-sm leading-relaxed mb-3 last:mb-0">
                 {paragraph}
               </p>
             ))}
           </div>
-        )}
+        </div>
 
         <button
           onClick={() => setExpanded(!expanded)}
-          style={{
-            color: "#F47C20",
-            fontWeight: 600,
-            fontSize: "14px",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            padding: 0,
-            textDecoration: "underline",
-          }}
+          className="text-[#F47C20] font-semibold text-sm hover:text-[#E86F1A] transition-colors duration-300 underline underline-offset-4 decoration-2 decoration-[#F47C20]/40 hover:decoration-[#E86F1A]"
         >
           {expanded ? "Read Less" : "Read More"}
         </button>
@@ -122,26 +70,25 @@ export default function Team() {
   return (
     <section
       id="team"
-      className="relative"
-      style={{
-        backgroundImage: "url('/images/team-sec-bg.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        padding: "80px 0",
-      }}
+      className="relative bg-[url('/images/team-sec-bg.png')] bg-cover bg-center pt-20 lg:pt-24"
+      style={{ paddingBottom: "250px" }}
     >
-      <div className="absolute inset-0" style={{ backgroundColor: "rgba(255,255,255,0.95)" }}></div>
+      {/* Background Overlay */}
+      <div className="absolute inset-0 bg-white/95" />
 
-      <div className="container-custom relative" style={{ zIndex: 10 }}>
-        <h2 className="section-title" style={{ marginBottom: "60px" }}>
-          Meet The <span>Team</span>
-        </h2>
+      <div className="container-custom relative z-10 w-full">
+        <div className="text-center animate-fade-in-up">
+          <h2 className="section-title !mb-0">
+            Meet The <span>Team</span>
+          </h2>
+        </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "70px" }}>
+        <div className="flex flex-col gap-16 lg:gap-20" style={{ marginTop: "70px" }}>
           {teamMembers.map((member, index) => (
             <TeamMember
               key={member.name}
               member={member}
+              index={index}
               isReversed={index % 2 !== 0}
             />
           ))}
@@ -150,3 +97,4 @@ export default function Team() {
     </section>
   );
 }
+

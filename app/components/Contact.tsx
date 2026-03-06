@@ -20,7 +20,19 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative" style={{ padding: "80px 0" }}>
+    <section id="contact" className="relative z-0" style={{ padding: "80px 0" }}>
+      {/* Dark background layer */}
+      <div
+        className="absolute inset-0 z-[-2]"
+        style={{
+          backgroundImage: "url('/images/footer-bg.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></div>
+      <div className="absolute inset-0 z-[-1]" style={{ backgroundColor: "rgba(17,24,39,0.92)" }}></div>
+
+      {/* Shape Divider Layer */}
       <div
         style={{
           position: "absolute",
@@ -30,6 +42,7 @@ export default function Contact() {
           overflow: "hidden",
           lineHeight: 0,
           transform: "rotate(180deg)",
+          zIndex: 0,
         }}
       >
         <svg
@@ -39,20 +52,10 @@ export default function Contact() {
         >
           <path
             d="M0,60 C300,120 900,0 1200,60 L1200,120 L0,120 Z"
-            style={{ fill: "#F47C20" }}
+            style={{ fill: "#FFFFFF" }}
           />
         </svg>
       </div>
-
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: "url('/images/footer-bg.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      ></div>
-      <div className="absolute inset-0" style={{ backgroundColor: "rgba(17,24,39,0.92)" }}></div>
 
       <div className="container-custom relative" style={{ zIndex: 10 }}>
         <h2
