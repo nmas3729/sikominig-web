@@ -1,8 +1,8 @@
 const stats = [
-  { value: "+/-1MT", label: "Tons of Coal Moved" },
+  { value: "+3MT", label: "Tons of Coal Moved" },
   { value: "90%", label: "Output Efficiency" },
   { value: "10/10", label: "Client Satisfaction" },
-  { value: "+90", label: "Years in the Business" },
+  { value: "+33", label: "Years in the Business" },
 ];
 
 export default function Stats() {

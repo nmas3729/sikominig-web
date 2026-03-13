@@ -78,18 +78,7 @@ export default function Hero() {
                 />
               </div>
 
-              {/* Decorative floating stats card */}
-              <div className="absolute -bottom-6 -left-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 shadow-xl z-20 animate-float" style={{ animationDelay: '1.5s' }}>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-[#F47C20]/20 flex items-center justify-center border border-[#F47C20]/30">
-                    <span className="text-[#F47C20] font-bold text-xl">60+</span>
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold text-sm">Years Combined</p>
-                    <p className="text-gray-400 text-xs">Industry Experience</p>
-                  </div>
-                </div>
-              </div>
+
 
             </div>
           </div>

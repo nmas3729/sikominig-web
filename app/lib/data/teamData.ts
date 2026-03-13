@@ -33,12 +33,12 @@ export const teamMembers: TeamMember[] = [
         name: "Mzoxolo Beqezi",
         role: "Technology Consultant",
         image: "/images/mzoxolo.png",
-        shortBio: "Mzoxolo Beqezi brings over 20 years of experience in Information Technology, including 12 years dedicated to Mining IT. He is the founder of NMAS INNOVATIONS (Pty) Ltd, a certified AWS and Azure specialist, a skilled Linux Administrator, and holds additional credentials in ITIL, cybersecurity, and cloud architecture.",
+        shortBio: "Mzoxolo Beqezi is a Technology Consultant with over 20 years of experience in Information Technology, specializing in supporting complex IT systems for the mining industry for more than 12 years.",
         fullBio: [
-            "His expertise covers systems implementation, infrastructure design, network management, and IT governance across complex industrial and mining environments.",
-            "Throughout his career, Mzoxolo has provided IT support and consulting services to several major corporations, including Anglo American, Thungela Resources, Transnet, and Barclays Africa, gaining valuable insight into diverse operational environments and large-scale IT challenges.",
-            "At Siko Mining, Mzoxolo plays a pivotal role in planning, deploying, and maintaining secure, scalable technology solutions that enhance efficiency, safety, and data-driven decision-making.",
-            "Mzoxolo's broad experience, spanning both hands-on technical operations and strategic consulting, enables him to bridge the gap between IT systems and business performance.",
+            "He has extensive experience working with platinum and coal mining operations, having supported one of South Africa’s top three platinum mines and a major coal mine, delivering IT support, system administration, and infrastructure management to ensure reliable and secure technology operations.",
+            "Mzoxolo is the founder of NMAS INNOVATIONS (Pty) Ltd and holds professional certifications in enterprise architecture, cloud computing, and cybersecurity, including TOGAF from The Open Group, CISSP from ISC2, and AWS Certified Solutions Architect – Associate.",
+            "His expertise also extends to Microsoft Azure technologies and industrial cybersecurity aligned with ISA/IEC 62443 standards. Throughout his career, he has provided critical technical assistance in complex mining and industrial environments.",
+            "At Siko Mining, he plays a key role in maintaining reliable IT systems, supporting operational technology, and ensuring secure and efficient technology operations across all mining processes.",
         ],
     },
 ];

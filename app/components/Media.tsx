@@ -52,33 +52,35 @@ export default function Media() {
         <h3 style={{ textAlign: "center", fontSize: "1.5rem", fontWeight: 700, color: "#1F2937", marginBottom: "30px" }}>
           Our Gallery
         </h3>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3" style={{ gap: "20px" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: "24px" }}>
           {galleryImages.map((image, index) => (
             <div
               key={index}
               style={{
                 backgroundColor: "#2C3440",
-                borderRadius: "12px",
-                padding: "10px",
-                boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                transition: "transform 0.3s ease",
+                borderRadius: "16px",
+                padding: "12px",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+                border: "1px solid rgba(255,255,255,0.05)",
+                transition: "all 0.3s ease",
               }}
+              className="hover:shadow-2xl hover:-translate-y-1"
             >
-              <Image
-                src={image.src}
-                alt={image.title}
-                width={400}
-                height={300}
-                style={{
-                  width: "100%",
-                  height: "300px",
-                  objectFit: "cover",
-                  borderRadius: "8px",
-                  display: "block",
-                }}
-                unoptimized
-              />
+              <div className="relative w-full aspect-[4/3] overflow-hidden rounded-lg">
+                <Image
+                  src={image.src}
+                  alt={image.title}
+                  fill
+                  style={{
+                    objectFit: "cover",
+                  }}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  unoptimized
+                />
+              </div>
+              <div className="mt-3 px-1">
+                <p className="text-white/80 text-xs font-medium uppercase tracking-wider">{image.title}</p>
+              </div>
             </div>
           ))}
         </div>
