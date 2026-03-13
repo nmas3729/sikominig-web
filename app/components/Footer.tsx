@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Phone, MapPin, Shield } from "lucide-react";
+import { Mail, Phone, MapPin, Shield, Award, Users } from "lucide-react";
 
 const footerLinks = [
   { name: "Home", href: "#home" },
@@ -11,6 +11,12 @@ const footerLinks = [
   { name: "Team", href: "#team" },
   { name: "Media", href: "#media" },
   { name: "Contact", href: "#contact" },
+];
+
+const certifications = [
+  { name: "Level 2 BBBEE", icon: Shield, description: "Certified" },
+  { name: "SACMA Member", icon: Award, description: "Member" },
+  { name: "IoDSA", icon: Users, description: "Institute of Directors" },
 ];
 
 export default function Footer() {
@@ -29,15 +35,23 @@ export default function Footer() {
               className="h-auto w-[140px] brightness-0 invert mb-5"
             />
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              Empowering the junior mining sector with accessible, sustainable mining services that guarantee operational success.
+              Empowering the junior mining sector with accessible and sustainable mining services.
             </p>
-            {/* BBBEE Badge */}
-            <div className="inline-flex items-center gap-3 px-4 py-3 bg-[#D4A84B]/10 rounded-lg border border-[#D4A84B]/20">
-              <Shield className="w-6 h-6 text-[#D4A84B]" />
-              <div>
-                <p className="text-xs text-gray-400">Certified</p>
-                <p className="text-sm font-semibold text-[#D4A84B]">Level 2 BBBEE</p>
-              </div>
+            
+            {/* Certification Badges */}
+            <div className="flex flex-wrap gap-3">
+              {certifications.map((cert) => {
+                const Icon = cert.icon;
+                return (
+                  <div 
+                    key={cert.name}
+                    className="flex items-center gap-2 px-3 py-2 bg-[#D4A84B]/10 rounded-lg border border-[#D4A84B]/20"
+                  >
+                    <Icon className="w-4 h-4 text-[#D4A84B]" />
+                    <span className="text-xs font-medium text-[#D4A84B]">{cert.name}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -110,7 +124,7 @@ export default function Footer() {
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-gray-500 text-sm text-center md:text-left">
-              {new Date().getFullYear()} Siko Mining Services (Pty) Ltd. All Rights Reserved.
+              &copy; {new Date().getFullYear()} Siko Mining Services (Pty) Ltd. All Rights Reserved.
             </p>
             <p className="text-gray-500 text-sm">
               Designed with purpose for the mining industry
