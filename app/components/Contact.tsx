@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useToast } from "./ui/Toast";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
-import { Mail, MapPin, Send, Loader2 } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Loader2 } from "lucide-react";
 
 interface FormErrors {
   name?: string;
@@ -79,7 +79,6 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
       showToast("Thank you! We'll be in touch soon.", "success");
       setFormData({ name: "", email: "", message: "" });
@@ -93,52 +92,63 @@ export default function Contact() {
   };
 
   const inputClasses = (fieldName: string) =>
-    `w-full px-4 py-3 rounded-lg bg-gray-900 border text-white text-sm placeholder-gray-500 outline-none transition-all duration-300 focus:ring-2 focus:ring-[#F47C20]/50 ${
+    `w-full px-5 py-4 rounded-xl bg-white border text-[#1A1A1A] text-base placeholder-gray-400 outline-none transition-all duration-300 focus:ring-2 focus:ring-[#D4A84B]/30 ${
       errors[fieldName as keyof FormErrors] && touched[fieldName]
         ? "border-red-500 focus:border-red-500"
-        : "border-gray-700 focus:border-[#F47C20]"
+        : "border-gray-200 focus:border-[#D4A84B]"
     }`;
 
+  const contactInfo = [
+    {
+      icon: Mail,
+      label: "Email",
+      value: "info@sikomining.co.za",
+      href: "mailto:info@sikomining.co.za",
+    },
+    {
+      icon: Phone,
+      label: "Phone",
+      value: "+27 (0) 13 XXX XXXX",
+      href: "tel:+27130000000",
+    },
+    {
+      icon: MapPin,
+      label: "Address",
+      value: "210 Pilgrims Rest, Reedstream Park, Rietspruit, Mpumalanga, South Africa 2231",
+      href: null,
+    },
+  ];
+
   return (
-    <section ref={ref} id="contact" className="relative z-0 py-20">
-      {/* Dark background layer */}
-      <div
-        className="absolute inset-0 z-[-2] bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/footer-bg.png')" }}
-      />
-      <div className="absolute inset-0 z-[-1] bg-gray-900/92" />
-
-      {/* Shape Divider Layer */}
-      <div className="absolute top-0 left-0 w-full overflow-hidden leading-[0] rotate-180 z-0">
-        <svg
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-          className="w-full h-[60px] block"
-        >
-          <path d="M0,60 C300,120 900,0 1200,60 L1200,120 L0,120 Z" fill="#FFFFFF" />
-        </svg>
-      </div>
-
-      <div className="container-custom relative z-10">
-        <h2
-          className={`text-3xl md:text-4xl font-bold text-center mb-12 text-white transition-all duration-700 ${
+    <section ref={ref} id="contact" className="section-spacing bg-[#1A1A1A]">
+      <div className="container-custom">
+        <div
+          className={`text-center mb-12 lg:mb-16 transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          Get in Touch <span className="text-[#F47C20]">With Us!</span>
-        </h2>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+            Get in <span className="text-[#D4A84B]">Touch</span>
+          </h2>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            Ready to discuss your mining project? Fill out the form below and our team will get back to you.
+          </p>
+        </div>
 
-        <div className="grid lg:grid-cols-2 gap-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+          {/* Contact Form */}
           <div
-            className={`bg-gray-800/80 rounded-xl p-8 backdrop-blur-sm transition-all duration-700 ${
+            className={`card-dark p-8 lg:p-10 transition-all duration-700 ${
               isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
             }`}
           >
+            <h3 className="text-xl font-bold text-white mb-6">Send us a message</h3>
             <form onSubmit={handleSubmit} noValidate>
               <div className="mb-5">
+                <label className="block text-sm font-medium text-gray-300 mb-2">Your Name</label>
                 <input
                   type="text"
-                  placeholder="Enter Your Name"
+                  placeholder="John Doe"
                   value={formData.name}
                   onChange={(e) => handleChange("name", e.target.value)}
                   onBlur={() => handleBlur("name")}
@@ -146,14 +156,15 @@ export default function Contact() {
                   disabled={isSubmitting}
                 />
                 {errors.name && touched.name && (
-                  <p className="mt-1 text-xs text-red-400">{errors.name}</p>
+                  <p className="mt-2 text-xs text-red-400">{errors.name}</p>
                 )}
               </div>
 
               <div className="mb-5">
+                <label className="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
                 <input
                   type="email"
-                  placeholder="Enter Your Email"
+                  placeholder="john@example.com"
                   value={formData.email}
                   onChange={(e) => handleChange("email", e.target.value)}
                   onBlur={() => handleBlur("email")}
@@ -161,13 +172,14 @@ export default function Contact() {
                   disabled={isSubmitting}
                 />
                 {errors.email && touched.email && (
-                  <p className="mt-1 text-xs text-red-400">{errors.email}</p>
+                  <p className="mt-2 text-xs text-red-400">{errors.email}</p>
                 )}
               </div>
 
               <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-300 mb-2">Your Message</label>
                 <textarea
-                  placeholder="Message..."
+                  placeholder="Tell us about your project..."
                   rows={5}
                   value={formData.message}
                   onChange={(e) => handleChange("message", e.target.value)}
@@ -176,68 +188,72 @@ export default function Contact() {
                   disabled={isSubmitting}
                 />
                 {errors.message && touched.message && (
-                  <p className="mt-1 text-xs text-red-400">{errors.message}</p>
+                  <p className="mt-2 text-xs text-red-400">{errors.message}</p>
                 )}
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <Loader2 className="w-5 h-5 animate-spin" />
                     Sending...
                   </>
                 ) : (
                   <>
-                    <Send className="w-4 h-4" />
-                    Submit
+                    <Send className="w-5 h-5" />
+                    Send Message
                   </>
                 )}
               </button>
             </form>
           </div>
 
+          {/* Contact Info */}
           <div
             className={`transition-all duration-700 delay-200 ${
               isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
             }`}
           >
-            <p className="text-gray-300 text-base leading-relaxed mb-8">
-              Fill in your details below to schedule a free consultation to discuss a strategy forward.
+            <h3 className="text-xl font-bold text-white mb-6">Contact Information</h3>
+            <p className="text-gray-400 leading-relaxed mb-8">
+              Schedule a free consultation to discuss a strategy forward for your mining operations.
             </p>
 
             <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-[#F47C20]/10 flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-5 h-5 text-[#F47C20]" />
-                </div>
-                <div>
-                  <h4 className="text-[#F47C20] font-semibold text-base mb-1">Mail Us</h4>
-                  <a
-                    href="mailto:info@sikomining.co.za"
-                    className="text-gray-300 text-sm hover:text-[#F47C20] transition-colors duration-300"
-                  >
-                    info@sikomining.co.za
-                  </a>
-                </div>
-              </div>
+              {contactInfo.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.label} className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-[#D4A84B]/10 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-6 h-6 text-[#D4A84B]" />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-semibold mb-1">{item.label}</h4>
+                      {item.href ? (
+                        <a
+                          href={item.href}
+                          className="text-gray-400 hover:text-[#D4A84B] transition-colors duration-300"
+                        >
+                          {item.value}
+                        </a>
+                      ) : (
+                        <p className="text-gray-400 leading-relaxed">{item.value}</p>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-[#F47C20]/10 flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-5 h-5 text-[#F47C20]" />
-                </div>
-                <div>
-                  <h4 className="text-[#F47C20] font-semibold text-base mb-1">Location</h4>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    210 Pilgrims Rest, Reedstream Park,
-                    <br />
-                    Rietspruit, Mpumalanga, South Africa 2231
-                  </p>
-                </div>
-              </div>
+            {/* Map placeholder or additional info */}
+            <div className="mt-10 p-6 rounded-xl bg-[#2A2A2A] border border-white/10">
+              <p className="text-sm text-gray-400 mb-2">Business Hours</p>
+              <p className="text-white font-medium">Monday - Friday: 8:00 AM - 5:00 PM</p>
+              <p className="text-gray-400 text-sm mt-1">Saturday & Sunday: Closed</p>
             </div>
           </div>
         </div>

@@ -1,12 +1,12 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Partners from "./components/Partners";
 import Mission from "./components/Mission";
-import Access from "./components/Access";
+import Capabilities from "./components/Capabilities";
+import Quote from "./components/Quote";
 import Services from "./components/Services";
 import Stats from "./components/Stats";
 import Media from "./components/Media";
-import WorkedWith from "./components/WorkedWith";
+import Partners from "./components/Partners";
 import About from "./components/About";
 import Team from "./components/Team";
 import Contact from "./components/Contact";
@@ -18,13 +18,13 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero />
-      <Partners />
       <Mission />
-      <Access />
+      <Capabilities />
+      <Quote />
       <Services />
       <Stats />
       <Media />
-      <WorkedWith />
+      <Partners />
       <About />
       <Team />
       <Contact />
