@@ -20,23 +20,23 @@ export default function Hero() {
 
           {/* LEFT: Text Content */}
           <div className="flex flex-col items-start text-left max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-sm animate-fade-in-up" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-sm animate-fade-in-up" style={{ animationDelay: '100ms' }}>
               <span className="flex h-2 w-2 rounded-full bg-[#F47C20] animate-pulse" />
               <span className="text-sm font-medium text-gray-300 tracking-wide uppercase">Leading Junior Mining Support</span>
             </div>
 
-            <h1 className="font-poppins text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight mb-6 animate-fade-in-up" style={{ animationDelay: '300ms', animationFillMode: 'both' }}>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight mb-6 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
               Empowering The <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F47C20] to-[#FFB067]">
                 Junior Mining
               </span> Sector
             </h1>
 
-            <p className="font-poppins text-lg text-gray-400 leading-relaxed mb-10 max-w-[540px] animate-fade-in-up" style={{ animationDelay: '500ms', animationFillMode: 'both' }}>
-              Unlocking your mine's full potential with accessible, sustainable, and highly specialized services that guarantee long-term operational success.
+            <p className="text-lg text-gray-400 leading-relaxed mb-10 max-w-[540px] animate-fade-in-up" style={{ animationDelay: '500ms' }}>
+              Unlocking your mine&apos;s full potential with accessible, sustainable, and highly specialized services that guarantee long-term operational success.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto animate-fade-in-up" style={{ animationDelay: '700ms', animationFillMode: 'both' }}>
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto animate-fade-in-up" style={{ animationDelay: '700ms' }}>
               <Link
                 href="#contact"
                 className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#F47C20] text-white font-semibold rounded-lg overflow-hidden transition-all duration-300 hover:bg-[#E86F1A] hover:shadow-[0_0_30px_rgba(244,124,32,0.4)] hover:-translate-y-1 w-full sm:w-auto"
@@ -55,12 +55,12 @@ export default function Hero() {
           </div>
 
           {/* RIGHT: Floating Image Showcase */}
-          <div className="relative w-full max-w-[600px] ml-auto mt-12 lg:mt-0 animate-fade-in-up" style={{ animationDelay: '900ms', animationFillMode: 'both' }}>
+          <div className="relative w-full max-w-[600px] ml-auto mt-12 lg:mt-0 animate-fade-in-up" style={{ animationDelay: '900ms' }}>
 
             {/* Glowing backdrop shadow */}
             <div className="absolute inset-0 bg-gradient-to-br from-[#F47C20]/40 to-transparent blur-[60px] transform scale-90 translate-y-4" />
 
-            <div className="relative z-10 animate-float">
+            <div className="relative z-10">
               {/* Glassmorphism decorative card behind image */}
               <div className="absolute -inset-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-xl transform rotate-3 transition-transform duration-700 hover:rotate-6 hidden sm:block" />
 
@@ -77,9 +77,6 @@ export default function Hero() {
                   priority
                 />
               </div>
-
-
-
             </div>
           </div>
 
@@ -88,4 +85,3 @@ export default function Hero() {
     </section>
   );
 }
-

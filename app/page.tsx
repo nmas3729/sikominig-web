@@ -11,6 +11,7 @@ import About from "./components/About";
 import Team from "./components/Team";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ui/ScrollToTop";
 
 export default function Home() {
   return (
@@ -28,6 +29,7 @@ export default function Home() {
       <Team />
       <Contact />
       <Footer />
+      <ScrollToTop />
     </main>
   );
 }

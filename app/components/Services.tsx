@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 const services = [
   {
@@ -24,51 +27,45 @@ const services = [
 ];
 
 export default function Services() {
+  const { ref, isVisible } = useScrollAnimation<HTMLElement>();
+
   return (
-    <section id="services" style={{ backgroundColor: "#FAFAFA", padding: "80px 0" }}>
+    <section
+      ref={ref}
+      id="services"
+      className="bg-gray-50 py-20"
+    >
       <div className="container-custom">
-        <h2 className="section-title" style={{ marginBottom: "50px" }}>
+        <h2
+          className={`section-title mb-12 transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           Our <span>Services</span>
         </h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4" style={{ gap: "25px" }}>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
             <div
               key={index}
-              style={{
-                backgroundColor: "#FFFFFF",
-                borderRadius: "8px",
-                padding: "30px 20px",
-                boxShadow: "0 5px 25px rgba(0,0,0,0.08)",
-                border: "1px solid #E5E7EB",
-                transition: "transform 0.3s ease",
-              }}
+              className={`bg-white rounded-lg p-6 shadow-lg border border-gray-100 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#F47C20]/30 group ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+              style={{ transitionDelay: isVisible ? `${index * 100}ms` : "0ms" }}
             >
-              <div
-                style={{
-                  width: "60px",
-                  height: "60px",
-                  marginBottom: "20px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "#F3F4F6",
-                  borderRadius: "8px",
-                }}
-              >
+              <div className="w-16 h-16 mb-5 flex items-center justify-center bg-gray-100 rounded-lg group-hover:bg-[#F47C20]/10 transition-colors duration-300">
                 <Image
                   src={service.icon}
                   alt={service.title}
                   width={40}
                   height={40}
-                  style={{ width: "35px", height: "35px", objectFit: "contain" }}
-                  unoptimized
+                  className="w-9 h-9 object-contain"
                 />
               </div>
-              <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#1F2937", marginBottom: "10px", lineHeight: 1.4 }}>
+              <h3 className="text-base font-bold text-gray-800 mb-3 leading-tight group-hover:text-[#F47C20] transition-colors duration-300">
                 {service.title}
               </h3>
-              <p style={{ fontSize: "13px", color: "#4B5563", lineHeight: 1.7 }}>
+              <p className="text-sm text-gray-600 leading-relaxed">
                 {service.description}
               </p>
             </div>

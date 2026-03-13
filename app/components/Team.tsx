@@ -3,13 +3,28 @@
 import { useState } from "react";
 import Image from "next/image";
 import { teamMembers } from "../lib/data/teamData";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
-function TeamMember({ member, isReversed, index }: { member: typeof teamMembers[0]; isReversed: boolean; index: number }) {
+function TeamMember({ 
+  member, 
+  isReversed, 
+  index 
+}: { 
+  member: typeof teamMembers[0]; 
+  isReversed: boolean; 
+  index: number;
+}) {
   const [expanded, setExpanded] = useState(false);
+  const { ref, isVisible } = useScrollAnimation<HTMLDivElement>({ threshold: 0.2 });
 
   return (
-    <div className={`grid lg:grid-cols-2 items-center gap-10 animate-fade-in-up`} style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'both' }}>
-
+    <div
+      ref={ref}
+      className={`grid lg:grid-cols-2 items-center gap-10 transition-all duration-700 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+      }`}
+      style={{ transitionDelay: `${index * 100}ms` }}
+    >
       {/* Image Column */}
       <div className={isReversed ? "lg:order-2" : ""}>
         <div className={`relative max-w-[400px] mx-auto lg:mx-0 ${isReversed ? 'lg:mr-auto' : 'lg:ml-auto'} group`}>
@@ -38,17 +53,17 @@ function TeamMember({ member, isReversed, index }: { member: typeof teamMembers[
         <p className="text-[#F47C20] font-semibold text-sm mb-1.5 uppercase tracking-wide">
           {member.role}
         </p>
-        <h3 className="text-2xl lg:text-[1.5rem] font-bold text-[#1F2937] mb-4">
+        <h3 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
           {member.name}
         </h3>
-        <p className="text-[#4B5563] text-sm leading-relaxed mb-4">
+        <p className="text-gray-600 text-base leading-relaxed mb-4">
           {member.shortBio}
         </p>
 
         <div className={`grid transition-all duration-500 ease-in-out ${expanded ? "grid-rows-[1fr] opacity-100 mb-4" : "grid-rows-[0fr] opacity-0 mb-0"}`}>
           <div className="overflow-hidden">
             {member.fullBio.map((paragraph, idx) => (
-              <p key={idx} className="text-[#4B5563] text-sm leading-relaxed mb-3 last:mb-0">
+              <p key={idx} className="text-gray-600 text-base leading-relaxed mb-3 last:mb-0">
                 {paragraph}
               </p>
             ))}
@@ -67,23 +82,30 @@ function TeamMember({ member, isReversed, index }: { member: typeof teamMembers[
 }
 
 export default function Team() {
+  const { ref, isVisible } = useScrollAnimation<HTMLElement>({ threshold: 0.1 });
+
   return (
     <section
+      ref={ref}
       id="team"
-      className="relative bg-[url('/images/team-sec-bg.png')] bg-cover bg-center pt-20 lg:pt-24"
-      style={{ paddingBottom: "250px" }}
+      className="relative bg-cover bg-center pt-20 lg:pt-24 pb-64"
+      style={{ backgroundImage: "url('/images/team-sec-bg.png')" }}
     >
       {/* Background Overlay */}
       <div className="absolute inset-0 bg-white/95" />
 
       <div className="container-custom relative z-10 w-full">
-        <div className="text-center animate-fade-in-up">
+        <div
+          className={`text-center transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           <h2 className="section-title !mb-0">
             Meet The <span>Team</span>
           </h2>
         </div>
 
-        <div className="flex flex-col gap-16 lg:gap-20" style={{ marginTop: "70px" }}>
+        <div className="flex flex-col gap-16 lg:gap-20 mt-16">
           {teamMembers.map((member, index) => (
             <TeamMember
               key={member.name}
@@ -97,4 +119,3 @@ export default function Team() {
     </section>
   );
 }
-

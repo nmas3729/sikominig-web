@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 const videos = [
   { src: "/images/Mining.mp4", title: "Mining Operations" },
@@ -12,70 +15,73 @@ const galleryImages = [
 ];
 
 export default function Media() {
+  const { ref, isVisible } = useScrollAnimation<HTMLElement>();
+
   return (
-    <section id="media" style={{ backgroundColor: "#F3F4F6", padding: "80px 0" }}>
+    <section ref={ref} id="media" className="bg-gray-100 py-20">
       <div className="container-custom">
-        <h2 className="section-title" style={{ marginBottom: "15px" }}>
+        <h2
+          className={`section-title mb-4 transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           Our <span>Media</span>
         </h2>
-        <p style={{ textAlign: "center", marginBottom: "50px", color: "#6B7280", fontSize: "15px" }}>
+        <p
+          className={`text-center mb-12 text-gray-500 text-base transition-all duration-700 delay-100 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           See our work in action through videos and images from our operations.
         </p>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3" style={{ gap: "20px", marginBottom: "60px" }}>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {videos.map((video, index) => (
             <div
               key={index}
-              style={{
-                backgroundColor: "#2C3440",
-                borderRadius: "12px",
-                padding: "10px",
-                boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                transition: "transform 0.3s ease",
-              }}
+              className={`bg-[#2C3440] rounded-xl p-3 shadow-2xl border border-white/10 transition-all duration-500 hover:-translate-y-2 hover:shadow-3xl ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+              style={{ transitionDelay: isVisible ? `${index * 100}ms` : "0ms" }}
             >
               <video
                 controls
                 muted
                 loop
                 playsInline
-                style={{ width: "100%", borderRadius: "8px", display: "block" }}
+                className="w-full rounded-lg block"
               >
                 <source src={video.src} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
+              <p className="mt-3 px-1 text-white/80 text-sm font-medium">{video.title}</p>
             </div>
           ))}
         </div>
 
-        <h3 style={{ textAlign: "center", fontSize: "1.5rem", fontWeight: 700, color: "#1F2937", marginBottom: "30px" }}>
+        <h3
+          className={`text-center text-2xl font-bold text-gray-800 mb-8 transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           Our Gallery
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: "24px" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {galleryImages.map((image, index) => (
             <div
               key={index}
-              style={{
-                backgroundColor: "#2C3440",
-                borderRadius: "16px",
-                padding: "12px",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
-                border: "1px solid rgba(255,255,255,0.05)",
-                transition: "all 0.3s ease",
-              }}
-              className="hover:shadow-2xl hover:-translate-y-1"
+              className={`bg-[#2C3440] rounded-2xl p-3 shadow-lg border border-white/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+              style={{ transitionDelay: isVisible ? `${(index + 3) * 100}ms` : "0ms" }}
             >
               <div className="relative w-full aspect-[4/3] overflow-hidden rounded-lg">
                 <Image
                   src={image.src}
                   alt={image.title}
                   fill
-                  style={{
-                    objectFit: "cover",
-                  }}
+                  className="object-cover transition-transform duration-500 hover:scale-110"
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  unoptimized
                 />
               </div>
               <div className="mt-3 px-1">

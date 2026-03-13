@@ -1,21 +1,30 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 export default function About() {
+  const { ref, isVisible } = useScrollAnimation<HTMLElement>();
+
   return (
-    <section id="about" style={{ backgroundColor: "#FAFAFA", padding: "80px 0" }}>
+    <section ref={ref} id="about" className="bg-gray-50 py-20">
       <div className="container-custom">
-        <div className="grid lg:grid-cols-2 items-center" style={{ gap: "40px" }}>
-          <div>
-            <h2 style={{ fontSize: "2rem", fontWeight: 700, color: "#1F2937", marginBottom: "20px" }}>
-              Who are <span style={{ color: "#F47C20" }}>We?</span>
+        <div className="grid lg:grid-cols-2 items-center gap-12">
+          <div
+            className={`transition-all duration-700 ${
+              isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
+            }`}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+              Who are <span className="text-[#F47C20]">We?</span>
             </h2>
-            <div style={{ color: "#4B5563", fontSize: "15px", lineHeight: 1.8 }}>
-              <p style={{ marginBottom: "15px" }}>
+            <div className="text-gray-600 text-base leading-relaxed space-y-4 mb-8">
+              <p>
                 Siko Mining Services Pty Ltd (&quot;SMS&quot;) is a level 2 
                 BBBEE-compliant mining entity.
               </p>
-              <p style={{ marginBottom: "25px" }}>
+              <p>
                 With over 60 years of experience in the mining sector, SMS has 
                 identified major gaps over the years, particularly within the 
                 Junior Mining sector.
@@ -26,32 +35,21 @@ export default function About() {
             </Link>
           </div>
 
-          <div className="relative">
-            <Image
-              src="/images/we-img.jpg"
-              alt="About Siko Mining"
-              width={600}
-              height={400}
-              style={{
-                width: "100%",
-                height: "auto",
-                borderRadius: "8px",
-                boxShadow: "0 10px 40px rgba(0,0,0,0.15)",
-              }}
-              unoptimized
-            />
-            <div
-              style={{
-                position: "absolute",
-                bottom: "-10px",
-                right: "-10px",
-                width: "100%",
-                height: "100%",
-                border: "3px solid #F47C20",
-                borderRadius: "8px",
-                zIndex: -1,
-              }}
-            ></div>
+          <div
+            className={`relative transition-all duration-700 delay-200 ${
+              isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
+            }`}
+          >
+            <div className="relative group">
+              <Image
+                src="/images/we-img.jpg"
+                alt="About Siko Mining"
+                width={600}
+                height={400}
+                className="w-full h-auto rounded-lg shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]"
+              />
+              <div className="absolute -bottom-3 -right-3 w-full h-full border-[3px] border-[#F47C20] rounded-lg -z-10 transition-transform duration-500 group-hover:translate-x-1 group-hover:translate-y-1" />
+            </div>
           </div>
         </div>
       </div>
