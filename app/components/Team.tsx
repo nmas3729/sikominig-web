@@ -3,93 +3,112 @@
 import { useState } from "react";
 import Image from "next/image";
 import { teamMembers } from "../lib/data/teamData";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
-function TeamMember({ member, isReversed, index }: { member: typeof teamMembers[0]; isReversed: boolean; index: number }) {
+function TeamCard({ 
+  member, 
+  index 
+}: { 
+  member: typeof teamMembers[0]; 
+  index: number;
+}) {
   const [expanded, setExpanded] = useState(false);
+  const { ref, isVisible } = useScrollAnimation<HTMLDivElement>({ threshold: 0.2 });
 
   return (
-    <div className={`grid lg:grid-cols-2 items-center gap-10 animate-fade-in-up`} style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'both' }}>
+    <div
+      ref={ref}
+      className={`card group transition-all duration-700 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+      }`}
+      style={{ transitionDelay: `${index * 150}ms` }}
+    >
+      {/* Photo */}
+      <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden mb-6 bg-gray-100">
+        <Image
+          src={member.image}
+          alt={member.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className={`object-cover transition-transform duration-500 group-hover:scale-105 ${
+            member.name.includes("Mzoxolo") ? "object-top" : "object-center"
+          }`}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/60 via-transparent to-transparent" />
+      </div>
 
-      {/* Image Column */}
-      <div className={isReversed ? "lg:order-2" : ""}>
-        <div className={`relative max-w-[400px] mx-auto lg:mx-0 ${isReversed ? 'lg:mr-auto' : 'lg:ml-auto'} group`}>
-          <div
-            className="relative z-10 w-full bg-gray-100 rounded-2xl overflow-hidden shadow-2xl transition-transform duration-500 group-hover:-translate-y-2 group-hover:scale-[1.02]"
-            style={{ aspectRatio: "4/5" }}
-          >
-            <Image
-              src={member.image}
-              alt={member.name}
-              fill
-              sizes="(max-width: 768px) 100vw, 400px"
-              className={`object-cover ${member.name.includes("Mzoxolo") ? "object-top" : "object-center"}`}
-            />
-          </div>
+      {/* Info */}
+      <p className="text-[#D4A84B] font-semibold text-sm uppercase tracking-wide mb-1">
+        {member.role}
+      </p>
+      <h3 className="text-xl font-bold text-[#1A1A1A] mb-3">
+        {member.name}
+      </h3>
+      <p className="text-[#525252] text-sm leading-relaxed mb-4">
+        {member.shortBio}
+      </p>
 
-          {/* Decorative outline offset */}
-          <div
-            className={`absolute -bottom-3 ${isReversed ? '-right-3' : '-left-3'} w-full h-full border-[3px] border-[#F47C20] rounded-2xl z-0 transition-transform duration-500 group-hover:translate-x-1 group-hover:translate-y-1`}
-          />
+      {/* Expandable bio */}
+      <div className={`grid transition-all duration-500 ease-in-out ${
+        expanded ? "grid-rows-[1fr] opacity-100 mb-4" : "grid-rows-[0fr] opacity-0 mb-0"
+      }`}>
+        <div className="overflow-hidden">
+          {member.fullBio.map((paragraph, idx) => (
+            <p key={idx} className="text-[#525252] text-sm leading-relaxed mb-3 last:mb-0">
+              {paragraph}
+            </p>
+          ))}
         </div>
       </div>
 
-      {/* Text Column */}
-      <div className={isReversed ? "lg:order-1" : ""}>
-        <p className="text-[#F47C20] font-semibold text-sm mb-1.5 uppercase tracking-wide">
-          {member.role}
-        </p>
-        <h3 className="text-2xl lg:text-[1.5rem] font-bold text-[#1F2937] mb-4">
-          {member.name}
-        </h3>
-        <p className="text-[#4B5563] text-sm leading-relaxed mb-4">
-          {member.shortBio}
-        </p>
-
-        <div className={`grid transition-all duration-500 ease-in-out ${expanded ? "grid-rows-[1fr] opacity-100 mb-4" : "grid-rows-[0fr] opacity-0 mb-0"}`}>
-          <div className="overflow-hidden">
-            {member.fullBio.map((paragraph, idx) => (
-              <p key={idx} className="text-[#4B5563] text-sm leading-relaxed mb-3 last:mb-0">
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        </div>
-
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="text-[#F47C20] font-semibold text-sm hover:text-[#E86F1A] transition-colors duration-300 underline underline-offset-4 decoration-2 decoration-[#F47C20]/40 hover:decoration-[#E86F1A]"
-        >
-          {expanded ? "Read Less" : "Read More"}
-        </button>
-      </div>
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="inline-flex items-center gap-1 text-[#D4A84B] font-semibold text-sm hover:text-[#B8923F] transition-colors duration-300"
+      >
+        {expanded ? (
+          <>
+            Read Less <ChevronUp className="w-4 h-4" />
+          </>
+        ) : (
+          <>
+            Read More <ChevronDown className="w-4 h-4" />
+          </>
+        )}
+      </button>
     </div>
   );
 }
 
 export default function Team() {
+  const { ref, isVisible } = useScrollAnimation<HTMLElement>({ threshold: 0.1 });
+
   return (
     <section
+      ref={ref}
       id="team"
-      className="relative bg-[url('/images/team-sec-bg.png')] bg-cover bg-center pt-20 lg:pt-24"
-      style={{ paddingBottom: "250px" }}
+      className="section-spacing bg-[#F5F5F5]"
     >
-      {/* Background Overlay */}
-      <div className="absolute inset-0 bg-white/95" />
-
-      <div className="container-custom relative z-10 w-full">
-        <div className="text-center animate-fade-in-up">
-          <h2 className="section-title !mb-0">
+      <div className="container-custom">
+        <div
+          className={`text-center mb-12 lg:mb-16 transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <h2 className="section-title">
             Meet The <span>Team</span>
           </h2>
+          <p className="section-subtitle">
+            Leadership with decades of combined experience in the mining industry
+          </p>
         </div>
 
-        <div className="flex flex-col gap-16 lg:gap-20" style={{ marginTop: "70px" }}>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {teamMembers.map((member, index) => (
-            <TeamMember
+            <TeamCard
               key={member.name}
               member={member}
               index={index}
-              isReversed={index % 2 !== 0}
             />
           ))}
         </div>
@@ -97,4 +116,3 @@ export default function Team() {
     </section>
   );
 }
-

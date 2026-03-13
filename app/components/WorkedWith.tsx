@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 const logos = [
   "/images/worked-logo1.png",
@@ -11,23 +14,34 @@ const logos = [
 ];
 
 export default function WorkedWith() {
+  const { ref, isVisible } = useScrollAnimation<HTMLElement>();
+
   return (
-    <section style={{ backgroundColor: "#FFFFFF", padding: "80px 0", textAlign: "center" }}>
+    <section ref={ref} className="bg-white py-20 text-center">
       <div className="container-custom">
-        <h2 className="section-title" style={{ marginBottom: "40px" }}>
-          We&apos;Ve <span>Worked</span> With
+        <h2
+          className={`section-title mb-10 transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          We&apos;ve <span>Worked</span> With
         </h2>
 
-        <div className="flex flex-wrap justify-center items-center" style={{ gap: "30px" }}>
+        <div className="flex flex-wrap justify-center items-center gap-8">
           {logos.map((logo, index) => (
-            <div key={index}>
+            <div
+              key={index}
+              className={`transition-all duration-500 hover:scale-110 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+              style={{ transitionDelay: isVisible ? `${index * 80}ms` : "0ms" }}
+            >
               <Image
                 src={logo}
                 alt={`Partner ${index + 1}`}
                 width={100}
                 height={50}
-                style={{ height: "50px", width: "auto", objectFit: "contain" }}
-                unoptimized
+                className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
               />
             </div>
           ))}
